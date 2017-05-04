@@ -24,7 +24,18 @@
 - `cb` для единственного коллбэка в параметрах функции
 
 ### Массивы названы существительными во множественном числе
-Пример:
+Неправильно:
+```js
+var age = [12, 40, 22, 7];
+var name = ['Иван', 'Петр', 'Мария', 'Алексей'];
+
+var wizard = {
+  name: 'Гендальф',
+  friend: ['Саурон', 'Фродо', 'Бильбо']
+}
+```
+
+Правильно:
 ```js
 var ages = [12, 40, 22, 7];
 var names = ['Иван', 'Петр', 'Мария', 'Алексей'];
@@ -35,11 +46,35 @@ var wizard = {
 }
 ```
 
-### Название функции или метода содержит глагол
-Глагол должен соответсовать действию, которе выполняет функция/метод. Например, можно использовать глагол `get` для функций/методов, которые что-то возвращают
-Примеры:
+### Название функции или метода содержит глагол (возможны исключения)
+1. Исключение: функции конструкторы (в этом случае название функции должно соответствовать создаваемому объекту, подробнее ниже)
+2. Исключение: функции обработчики/коллбэки (в этом случае название функции должно содержать указание на то, что это обработчик или коллбэк, подробнее ниже)
+
+Название функции/метода должно быть глаголом и соответствовать действию, которое выполняет функция/метод. Например, можно использовать глагол `get` для функций/методов, которые что-то возвращают
+
+Неправильно:
 ```js
-var printNames = function (names) {
+var function1 = function(names) {
+  names.forEach(function (name) {
+    console.log(name);
+  });
+};
+
+var wizard = {
+  name: 'Гендальф',
+  action: function () {
+    console.log('Стреляю файрболлом!');
+  }
+};
+
+var randomNumber = function() {
+  return Math.random();
+}
+```
+
+Правильно:
+```js
+var printNames = function(names) {
   names.forEach(function (name) {
     console.log(name);
   });
@@ -65,31 +100,65 @@ var getRandomNumber = function() {
  ```
 
 ### Конструкторы названы английскими существительными. Название конструкторов начинается с заглавной буквы
-Пример:
+Названия функций не являющихся конструкторами должны начинаться со строчной буквы
+Неправильно:
+```js
+var wizard = function (name, age) {
+  this.name = name;
+  this.age = age;
+}
+
+var Fly = function(coordinate) {
+  console.log('Смотрите я лечу!')
+}
+```
+
+Правильно:
 ```js
 var Wizard = function (name, age) {
   this.name = name;
   this.age = age;
 }
+
+var fly = function(coordinate) {
+  console.log('Смотрите я лечу!')
+}
 ```
  
 ### Переменные носят абстрактные названия и не содержат имён собственных (доп)
-Пример:
-```js
-var cat = {
-  name: 'Кекс'
-}
-```
-Вместо:
+
+Неправильно:
 ```js
 var keks = {
   name: 'Кекс'
 }
 ```
 
-### Название методов и свойств объектов не повторяет название объектов `popup.openPopup`, `wizard.wizardName` (доп)
+Правильно:
+```js
+var cat = {
+  name: 'Кекс'
+}
+```
 
-### Из названия обработчика события и функции-коллбэка следует что это обработчик (доп)
+### Название методов и свойств объектов не повторяет название объектов  (доп)
+Неправильно:
+```js
+popup.openPopup = function() {
+  console.log('I will open popup')
+}
+wizard.wizardName = 'Пендальф'
+```
+
+Правильно
+```js
+popup.open = function() {
+  console.log('I will open popup')
+}
+wizard.name = 'Пендальф'
+```
+
+### Из названия обработчика события и функции-коллбэка следует, что это обработчик (доп)
 Для единственного обработчика или функции можно использовать `callback` или `cb`. Для именования нескольких обработчиков внутри одного модуля используется `on` или `handler` и описание события. Название обработчика строится следующим образом:
  - `on` + (на каком элементе) + что случилось:
  
@@ -112,26 +181,8 @@ var keks = {
 ## Единообразие (доп)
 
 ### Все функции объявлены единообразно
-Либо как [«функциональное выражение»](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function), либо как [«функциональное объявление»](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function). Что-то одно, смешивать не нужно. Например:
-```js
-function doSomething() {
-  // function body
-}
+Либо как [«функциональное выражение»](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function), либо как [«функциональное объявление»](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function). Что-то одно, смешивать не нужно.
 
-function doSomethingElse() {
-  // function body
-}
-```
-или так
-```js
-var doSomething = function () {
-    // function body
-};
-
-var doSomethingElse = function () {
-    // function body
-};
-```
 Неправильно:
 ```js
 var doSomethingElse = function () {
@@ -143,32 +194,107 @@ function doSomething() {
 }
 ```
 
+Правильно 1:
+```js
+function doSomething() {
+  // function body
+}
+
+function doSomethingElse() {
+  // function body
+}
+```
+
+Правильно 2:
+```js
+var doSomething = function () {
+    // function body
+};
+
+var doSomethingElse = function () {
+    // function body
+};
+```
+
 ### Единый стиль именования
 Стиль именования сохраняется во всех модулях, например:
 - не следует мешать обработчики содержащие `Handler` и `on`
 - если переменные, которые хранят DOM-элемент содержат слово `Element`, то это правило работает везде:
+Неправильно:
 ```js
 var popupMainElement = document.querySelector('.popup');
+var sidebarNode = document.querySelector('.sidebar');
+var similarContainer = popupMainElement.querySelector('ul.similar');
+```
+
+Правильно:
+```js
+var popupMainElement = document.querySelector('.popup');
+var sidebarElement = document.querySelector('.sidebar');
 var similarContainerElement = popupMainElement.querySelector('ul.similar');
 ```
 
-### При использовании встроенного API, который поддерживает двоякого использования, придерживаться одного способа (доп)
-- `getElementById` или `querySelector`
-- `element.getAttribute('class')` или `element.className`
+### При использовании встроенного API, который поддерживает несколько вариантов использования, придерживаться одного способа (доп)
+Неправильно:
+```js
+var popupMainElement = document.querySelector('#popup');
+var sidebarElement = document.getElementById('sidebar');
 
+var popupClassName = popupMainElement.getAttribute('class');
+var sidebarClassName = sidebarElement.className
+
+```
+
+Правильно:
+```js
+var popupMainElement = document.querySelector('#popup');
+var sidebarElement = document.querySelector('#sidebar');
+```
+
+```js
+var popupClassName = popupMainElement.getAttribute('class');
+var sidebarClassName = sidebarElement.getAttribute('class');
+
+```
+
+или
+
+```js
+var popupMainElement = document.getElementById('popup');
+var sidebarElement = document.getElementById('sidebar');
+```
+
+```js
+var popupClassName = popupMainElement.className;
+var sidebarClassName = sidebarElement.className;
+
+```
 
 ## Форматирование и внешний вид
 
 ### Используются обязательные блоки кода
 В любых конструкциях, где подразумевается использование блока кода (фигурных скобок), таких как `for`, `while`, `if`, `switch`, `function` — блок кода используется обязательно, даже если инструкция состоит из одной строчки
 
+Неправильно:
+```js
+if (x % 2 === 1) return
+```
+
+Правильно:
+```js
+if (x % 2 === 1) {
+  return
+}
+```
+
+
 ### Список констант идёт перед основным кодом
-Все константы выносятся на самый верх модуля/файла
+Все константы выносятся в начало модуля/файла
 
 ### Код соответствует гайдлайнам (ESLint)
-Отсутпы между операторами и ключевым словами соответствуют стайлгайду.
-Для отступов используются одинаковые символы, вложенность кода обозначается отступами.
-Однообразно расставлены пробелы перед, после и внутри скобок, операторов и ключевых слов
+- Отступы между операторами и ключевым словами соответствуют стайлгайду.
+- Для отступов используются одинаковые символы, вложенность кода обозначается отступами.
+- Однообразно расставлены пробелы перед, после и внутри скобок, операторов и ключевых слов
 
 *Указания к проверке*
 
@@ -184,19 +310,15 @@ var similarContainerElement = popupMainElement.querySelector('ul.similar');
 
 ### В коде нет заранее недостижимых участков кода
 Например:
+Невыполнимые условия
 ```js
 var happen = false;
 if (happen) {
   console.log('This will not happen anyway!');
 }
 ```
-или
-```js
-if (false) {
-  console.log('This will not happen anyway!');
-}
-```
-Отсутсвуют лишние ретурны
+
+Операции после выхода из функции
 ```js
 return;
 console.log('This will not happen!');
@@ -213,6 +335,23 @@ console.log('This will not happen!');
 
 ### Строгие сравнения вместо нестрогих (ESLint)
 Вместо операторов нестрогого сравнения `==` и `!=`, используются операторы строгого сравнения `===`, `!==`. [Таблицы истинности](http://dorey.github.io/JavaScript-Equality-Table/) для JavaScript
+Неправильно:
+```js
+var foo = ''
+var bar = []
+if (foo == bar) {
+  destroy(world)
+}
+```
+
+Правильно:
+```js
+var foo = ''
+var bar = []
+if (foo === bar) {
+  destroy(world)
+}
+```
 
 ### В коде не используются зарезервированные слова в качестве имен переменных и свойств
 В названия переменных и свойств не включаются операторы и ключевые слова зарезервированные для будущих версий языка (например, `class`, `extends`).
@@ -275,7 +414,7 @@ window.load = function (url, onLoad) {
 
 ### Все значения, используемые только внутри модулей ограничены по видимости
 Из модуля ничего не должно попадать случайными образом в глобальную область видимости
-Неверно:
+Неправильно:
 ```js
 'use strict';
 
@@ -291,7 +430,8 @@ window.load = function (url, onLoad) {
   });
 })();
 ```
-Верно:
+
+Правильно:
 ```js
 'use strict';
 
@@ -385,7 +525,7 @@ var ENTER_KEYCODE = 13;
 ```
 
 ### Во всех модулях для ограничения области видимости используются IIFE и только он (доп)
-Пример неправильного модуля:
+Неправильно:
 ```js
 'use strict';
 
@@ -399,6 +539,21 @@ window.load = function (url, onLoad) {
 };
 ```
 
+Правильно:
+```js
+'use strict';
+
+window.load = (function() {
+  return function (url, onLoad) {
+    var xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onLoad);
+
+    xhr.responseType = 'json';
+    xhr.open('GET', url);
+    xhr.send();
+  };
+})()
+```
 
 ## Универсальность
 
@@ -416,17 +571,9 @@ IE не поддерживается, только Edge.
 ## Избыточность
 
 ### В проекте не должно быть избыточных проверок (доп)
-Например, если заранее известно, что функция всегда принимает числовой параметр, то не следует проверять его на существование существование:
-Верно:
-```js
-var isPositiveNumber = function (myNumber) {
-  return myNumber > 0;
-};
+Например, если заранее известно, что функция всегда принимает числовой параметр, то не следует проверять его на существование:
 
-isPositiveNumber(15);
-isPositiveNumber(-30);
-```
-Неверно:
+Неправильно:
 ```js
 var isPositiveNumber = function (myNumber) {
   if (typeof myNumber === 'undefined') {
@@ -439,11 +586,21 @@ isPositiveNumber(15);
 isPositiveNumber(-30);
 ```
 
+Правильно:
+```js
+var isPositiveNumber = function (myNumber) {
+  return myNumber > 0;
+};
+
+isPositiveNumber(15);
+isPositiveNumber(-30);
+```
+
 ### Отсутствует дублирование кода: повторяющиеся части кода переписаны как функции (доп)
 При написании кода следует придерживаться принципа [DRY](https://ru.wikipedia.org/wiki/Don%E2%80%99t_repeat_yourself)
 
 ### Если при использовании условного оператора в любом случае возвращается значение, альтернативная ветка опускается (доп)
-Неверно:
+Неправильно:
 ```js
 if (2 > 1) {
   return val;
@@ -451,7 +608,8 @@ if (2 > 1) {
   return anotherVal;
 }
 ```
-Верно:
+
+Правильно:
 ```js
 if (2 > 1) {
   return val;
@@ -462,8 +620,16 @@ return anotherVal;
 
 ### Отсутствуют лишние приведения и проверки типов (доп)
 Если заранее известно что в переменной число, то нет смысла превращать переменную в число `parseInt(myNumber)`. Тоже касается и избыточной проверки булевой переменной:
+Неправильно:
 ```js
 if (booleanValue === true) {
+  console.log('It\'s true!');
+}
+```
+
+Правильно:
+```js
+if (booleanValue) {
   console.log('It\'s true!');
 }
 ```
@@ -528,6 +694,7 @@ apartments.forEach(function (it, index) {
   }
 });
 ```
+
 Правильно:
 ```javascript
 for (var i = 0; i < Math.min(apartments.length, 3); i++) {
@@ -537,6 +704,7 @@ for (var i = 0; i < Math.min(apartments.length, 3); i++) {
 
 ### Количество вызовов циклов минимизировано
 Если задачу можно решить за один проход по циклу, вместо нескольких она должна быть решена за один
+
 Неправильно:
 ```js
 var wizardNames = source.map(function (it) {
@@ -545,6 +713,7 @@ var wizardNames = source.map(function (it) {
     return it.name; 
   });
 ```
+
 Правильно:
 ```js
 var wizardNames = source.map(function (it) {
@@ -558,6 +727,7 @@ var wizardNames = source.map(function (it) {
 ### Константы, используемые внутри функций создаются вне функций и используются повторно через замыкания (доп)
 
 ### Поиск элементов по селекторам делается минимальное количество раз, после этого ссылки на элементы сохраняются (доп)
+
 Неправильно:
 ```js
 for (var i = 0; i < Math.min(apartments.length, 3); i++) {
@@ -565,6 +735,7 @@ for (var i = 0; i < Math.min(apartments.length, 3); i++) {
   render(dialog, apartments[i]);
 }
 ```
+
 Правильно:
 ```javascript
 var dialog = document.querySelector('.dialog');
@@ -578,6 +749,7 @@ for (var i = 0; i < Math.min(apartments.length, 3); i++) {
 
 ### Точечно применять изменения (доп)
 Не удалять массово классы, если можно убрать лишь предыдущий
+
 Неправильно:
 ```js
 var imageContainer = document.querySelector('.image-container');
@@ -587,6 +759,7 @@ var changeFilter = function (filterName) {
   imageContainer.classList.add(filterName);
 };
 ```
+
 Правильно:
 ```js
 var imageContainer = document.querySelector('.image-container');
