@@ -4,4 +4,6 @@ githubUrl: "https://github.com/htmlacademy/intensive-javascript-criteria"
 issuesUrl: "https://github.com/htmlacademy/intensive-javascript-criteria/issues"
 pullsUrl: "https://github.com/htmlacademy/intensive-javascript-criteria/pulls"
 
-theme: minima
+theme: minimal-mistakes-jekyll
+
+#markdown: CommonMark
