@@ -1,6 +1,10 @@
 # Список всех критериев базового интенсива
 
 
+
+#Базовые критерии
+
+
 ## Задача
 
 ### Код соответствует ТЗ проекта
@@ -125,150 +129,6 @@ var fly = function(coordinate) {
 }
 ```
  
-### Переменные носят абстрактные названия и не содержат имён собственных (доп)
-
-Неправильно:
-```js
-var keks = {
-  name: 'Кекс'
-}
-```
-
-Правильно:
-```js
-var cat = {
-  name: 'Кекс'
-}
-```
-
-### Название методов и свойств объектов не повторяет название объектов  (доп)
-Неправильно:
-```js
-popup.openPopup = function() {
-  console.log('I will open popup')
-}
-wizard.wizardName = 'Пендальф'
-```
-
-Правильно
-```js
-popup.open = function() {
-  console.log('I will open popup')
-}
-wizard.name = 'Пендальф'
-```
-
-### Из названия обработчика события и функции-коллбэка следует, что это обработчик (доп)
-Для единственного обработчика или функции можно использовать `callback` или `cb`. Для именования нескольких обработчиков внутри одного модуля используется `on` или `handler` и описание события. Название обработчика строится следующим образом:
- - `on` + (на каком элементе) + что случилось:
- 
-```js
- var onSidebarClick;
- var onContentLoad;
- 
- var onResize;
-```
- - (на каком элементе) + что случилось + `Handler`:
- 
-```js
- var sidebarClickHandler;
- var contentLoadHandler;
- 
- var resizeHandler;
-```
-
-
-## Единообразие (доп)
-
-### Все функции объявлены единообразно
-Либо как [«функциональное выражение»](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function), либо как [«функциональное объявление»](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function). Что-то одно, смешивать не нужно.
-
-Неправильно:
-```js
-var doSomethingElse = function () {
-    // function body
-};
-
-function doSomething() {
-  // function body
-}
-```
-
-Правильно 1:
-```js
-function doSomething() {
-  // function body
-}
-
-function doSomethingElse() {
-  // function body
-}
-```
-
-Правильно 2:
-```js
-var doSomething = function () {
-    // function body
-};
-
-var doSomethingElse = function () {
-    // function body
-};
-```
-
-### Единый стиль именования
-Стиль именования сохраняется во всех модулях, например:
-- не следует мешать обработчики содержащие `Handler` и `on`
-- если переменные, которые хранят DOM-элемент содержат слово `Element`, то это правило работает везде:
-Неправильно:
-```js
-var popupMainElement = document.querySelector('.popup');
-var sidebarNode = document.querySelector('.sidebar');
-var similarContainer = popupMainElement.querySelector('ul.similar');
-```
-
-Правильно:
-```js
-var popupMainElement = document.querySelector('.popup');
-var sidebarElement = document.querySelector('.sidebar');
-var similarContainerElement = popupMainElement.querySelector('ul.similar');
-```
-
-### При использовании встроенного API, который поддерживает несколько вариантов использования, придерживаться одного способа (доп)
-Неправильно:
-```js
-var popupMainElement = document.querySelector('#popup');
-var sidebarElement = document.getElementById('sidebar');
-
-var popupClassName = popupMainElement.getAttribute('class');
-var sidebarClassName = sidebarElement.className
-
-```
-
-Правильно:
-```js
-var popupMainElement = document.querySelector('#popup');
-var sidebarElement = document.querySelector('#sidebar');
-```
-
-```js
-var popupClassName = popupMainElement.getAttribute('class');
-var sidebarClassName = sidebarElement.getAttribute('class');
-
-```
-
-или
-
-```js
-var popupMainElement = document.getElementById('popup');
-var sidebarElement = document.getElementById('sidebar');
-```
-
-```js
-var popupClassName = popupMainElement.className;
-var sidebarClassName = sidebarElement.className;
-
-```
 
 ## Форматирование и внешний вид
 
@@ -286,7 +146,6 @@ if (x % 2 === 1) {
   return
 }
 ```
-
 
 ### Список констант идёт перед основным кодом
 Все константы выносятся в начало модуля/файла
@@ -357,63 +216,6 @@ if (foo === bar) {
 В названия переменных и свойств не включаются операторы и ключевые слова зарезервированные для будущих версий языка (например, `class`, `extends`).
 Список всех зарезервированных слов можно найти [тут](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords)   
 
-### API встроенных функций и объектов используется правильно (доп)
-Передаются корректные значения, которые ожидаются по спецификации
-Неправильно:
-```js
-var isPressed = element.getAttribute('aria-pressed', false);
-```
-Правильно:
-```js
-var isPressed = element.getAttribute('aria-pressed');
-```
-Встроенные методы массивов используются по назаначению.
-Неправильно:
-```js
-var greet = 'Привет ';
-
-wizards.map(function (it) {
-  greet += ', ' + it.name;
-});
-
-console.log(greet + '!');
-```
-Правильно:
-```js
-var greet = 'Привет ';
-
-var names = wizards.map(function (it) {
-  return it.name;
-});
-
-console.log(greet + names.join(', ') + '!');
-```
-
-### Отсутствуют потенциально некорректные операции (доп)
-Например некорректное сложение двух операндов как строк. Проблема приоритета конкатенации над сложением. Например:
-Неправильно:
-```js
-new Date() + 1000;
-```
-Правильно:
-```js
-+new Date() + 1000;
-```
-Некорректные проверки на существование с числами. 
-Пример некорректной проверки на то, что переменная является числом:
-```js
-var double = function (value) {
-  if(!value) {
-    return NaN;
-  }
-  
-  return value * 2;
-};
-
-double(0);
-double();
-double(5);
-```
 
 ## Модульность
 
@@ -474,111 +276,6 @@ var ENTER_KEYCODE = 13;
 })();
 ```
 
-### В случае, если одинаковый код повторяется в нескольких модулях, повторяющаяся часть вынесена в отдельный модуль (доп)
-Критерий касается структурных единиц код — повторяющийся блок кода, либо функции с одним и теми же констукциями, например утилитные методы для проверки клавиш:
-```js
-// Файл keyboard.js
-'use strict';
-
-(function () {
-  var ENTER_KEYCODE = 13;
-  var ESC_KEYCODE = 27;
-  
-  window.keyboard = {
-    isKeyBoardEvent: function (evt) {
-      return evt instanceof KeyboardEvent;
-    },
-    isEnterPressed: function (evt) {
-      return evt.keyCode === ENTER_KEYCODE;
-    },
-    isEscPressed: function (evt) {
-      return evt.keyCode === ESC_KEYCODE;
-    }
-  }
-})();
-```
-**Не стоит выносить в отдельный модуль одну повторяющуюся интсрукцию**:
-```js
-// Файл hide-gallery.js
-'use strict';
-
-(function () {
-  window.hideGallery = function (gallery) {
-    return gallery.classList.add('invisible');
-  }
-})();
-```
-
-### При экспорте из одного модуля нескольких значений используется пространство имен (доп)
-Множественные значения записываются в один объект. Имя объекта совпадает с именем файла без учета кейса.
-Неправильно:
-```js
-// Файл dialog-util.js
-'use strict';
-
-(function () {
-  var ENTER_KEYCODE = 13;
-  var ESC_KEYCODE = 27;
-  
-  window.isEnterPressed = function (evt) {
-    return evt.keyCode === ENTER_KEYCODE;
-  };
-  
-  window.isEscPressed = function (evt) {
-    return evt.keyCode === ESC_KEYCODE;
-  };
-})();
-```
-Правильно:
-```js
-// Файл dialog-util.js
-'use strict';
-
-(function () {
-  var ENTER_KEYCODE = 13;
-  var ESC_KEYCODE = 27;
-  
-  window.dialogUtil = {
-    isEnterPressed: function (evt) {
-      return evt.keyCode === ENTER_KEYCODE;
-    },
-    isEscPressed: function (evt) {
-      return evt.keyCode === ESC_KEYCODE;
-    }
-  }
-})();
-```
-
-### Во всех модулях для ограничения области видимости используются IIFE и только он (доп)
-Неправильно:
-```js
-'use strict';
-
-window.load = function (url, onLoad) {
-  var xhr = new XMLHttpRequest();
-  xhr.addEventListener('load', onLoad);
-
-  xhr.responseType = 'json';
-  xhr.open('GET', url);
-  xhr.send();
-};
-```
-
-Правильно:
-```js
-'use strict';
-
-window.load = (function() {
-  return function (url, onLoad) {
-    var xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onLoad);
-
-    xhr.responseType = 'json';
-    xhr.open('GET', url);
-    xhr.send();
-  };
-})()
-```
 
 ## Универсальность
 
@@ -589,103 +286,6 @@ window.load = (function() {
 Тестирование необходимо проводить именно в последних версиях браузеров, которые предоставляют поставщики, а не те, которые установлены в данный момент на компьютере проверяющего.
 Важно: для пользователей Windows последняя версия браузера Safari — 5, а у всех остальных — 9, поэтому проводить тестирование на Windows не надо.
 IE не поддерживается, только Edge.
-
-
-## Избыточность
-
-### В проекте не должно быть избыточных проверок (доп)
-Например, если заранее известно, что функция всегда принимает числовой параметр, то не следует проверять его на существование:
-
-Неправильно:
-```js
-var isPositiveNumber = function (myNumber) {
-  if (typeof myNumber === 'undefined') {
-    throw new Error('Parameter is not defined');
-  }
-  return myNumber > 0;
-};
-
-isPositiveNumber(15);
-isPositiveNumber(-30);
-```
-
-Правильно:
-```js
-var isPositiveNumber = function (myNumber) {
-  return myNumber > 0;
-};
-
-isPositiveNumber(15);
-isPositiveNumber(-30);
-```
-
-### Отсутствует дублирование кода: повторяющиеся части кода переписаны как функции (доп)
-При написании кода следует придерживаться принципа [DRY](https://ru.wikipedia.org/wiki/Don%E2%80%99t_repeat_yourself)
-
-### Если при использовании условного оператора в любом случае возвращается значение, альтернативная ветка опускается (доп)
-Неправильно:
-```js
-if (2 > 1) {
-  return val;
-} else {
-  return anotherVal;
-}
-```
-
-Правильно:
-```js
-if (2 > 1) {
-  return val;
-}
-
-return anotherVal;
-```
-
-### Отсутствуют лишние приведения и проверки типов (доп)
-Если заранее известно что в переменной число, то нет смысла превращать переменную в число `parseInt(myNumber)`. Тоже касается и избыточной проверки булевой переменной:
-Неправильно:
-```js
-if (booleanValue === true) {
-  console.log('It\'s true!');
-}
-```
-
-Правильно:
-```js
-if (booleanValue) {
-  console.log('It\'s true!');
-}
-```
-
-### Там где возможно, в присвоении значени вместо if используется тернарный оператор (доп)
-Неправильно:
-```js
-var sex;
-if (male) { 
-  sex = 'Мужчина';
-} else { 
-  sex = 'Женщина';
-}
-```
-Правильно:
-```js
-var sex = male ? 'Мужчина' : 'Женщина';
-```
- 
-### Условия упрощены (доп)
-Если функция возвращает булево значение, не используется `if..else` с лишними `return`:
-Неправильно:
-```js
-if (firstValue === secondValue) {
-  return true;
-} else {
-  return false;
-}
-```
-Правильно:
-```js
-return firstValue === secondValue;
-```
 
 
 ## Магия
@@ -701,10 +301,6 @@ var onElemClick = function () {
 
 elem.addEventListener('click', oneElemClick);
 ```
-Студент пишет и код работает, спрашиваешь откуда `event` взялся — говорит что он всегда есть если мы сейчас что-то обрабатываем и бла-бла-бла или еще какую мифологию рождает про божественную переменную `event` которая есть только тогда когда есть, ну короче...
-
-### В коде не используются «магические значения», под каждое из них заведена отдельная переменная, названная как константа (доп)
-
 
 ## Оптимальность
 
@@ -747,9 +343,451 @@ var wizardNames = source.map(function (it) {
 ### Множественные DOM-операции производятся на элементах, которые не добавлены в DOM 
 Например, наполнение скопированного из шаблона элемента данными
 
-### Константы, используемые внутри функций создаются вне функций и используются повторно через замыкания (доп)
 
-### Поиск элементов по селекторам делается минимальное количество раз, после этого ссылки на элементы сохраняются (доп)
+## Безопасность
+
+### Следить за подвешиванием и снятием обработчиков
+Обработчики событий для виджетов добавляются только в момент появления виджета на странице и удаляются в момент их исчезновения.
+
+**Защита от `memory-leak`**  
+Кол-во обработчиков подвешенных на глобальную область видимости не должно возрастать. Например, если подвешивается обработчик, который следит за перемещением курсора по экрану, то он должен подвешиваться и отвешиваться в нужный момент. В случае если обработчик на `document` только подвешивается это может свидетельствовать о проблеме бесконечного создания обработчиков и потенциальной утечке памяти.
+
+**Защита от неправильного поведения интерфейса**
+ Например, на странице может существовать попап, который скрывается по `Esc`. Лучше для него гасить обработчик, если он не показан, потому что он может каким-то образом ломать поведение сайта — останавливать распространение, отменять дефолтное поведение и т.д. Поэтому поведение должно быть **явным** — если в этот момент времени обработчики не нужны, их нужно удалить. Явное и предсказуемое поведение.
+
+### Запрещено использовать `innerHTML` и подобные ему свойства и методы для вставки пользовательских строк (имён, фамилий и т.д.)
+Защита от XSS-атак, а также изменения исходных данных, запутывание пользователя и прочее
+
+
+
+# Дополнительные
+
+
+## Именование
+
+### Переменные носят абстрактные названия и не содержат имён собственных
+
+Неправильно:
+```js
+var keks = {
+  name: 'Кекс'
+}
+```
+
+Правильно:
+```js
+var cat = {
+  name: 'Кекс'
+}
+```
+
+### Название методов и свойств объектов не повторяет название объектов 
+Неправильно:
+```js
+popup.openPopup = function() {
+  console.log('I will open popup')
+}
+wizard.wizardName = 'Пендальф'
+```
+
+Правильно
+```js
+popup.open = function() {
+  console.log('I will open popup')
+}
+wizard.name = 'Пендальф'
+```
+
+### Из названия обработчика события и функции-коллбэка следует, что это обработчик
+Для единственного обработчика или функции можно использовать `callback` или `cb`. Для именования нескольких обработчиков внутри одного модуля используется `on` или `handler` и описание события. Название обработчика строится следующим образом:
+ - `on` + (на каком элементе) + что случилось:
+ 
+```js
+ var onSidebarClick;
+ var onContentLoad;
+ 
+ var onResize;
+```
+ - (на каком элементе) + что случилось + `Handler`:
+ 
+```js
+ var sidebarClickHandler;
+ var contentLoadHandler;
+ 
+ var resizeHandler;
+```
+
+
+## Единообразие
+
+### Все функции объявлены единообразно
+Либо как [«функциональное выражение»](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function), либо как [«функциональное объявление»](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function). Что-то одно, смешивать не нужно.
+
+Неправильно:
+```js
+var doSomethingElse = function () {
+    // function body
+};
+
+function doSomething() {
+  // function body
+}
+```
+
+Правильно 1:
+```js
+function doSomething() {
+  // function body
+}
+
+function doSomethingElse() {
+  // function body
+}
+```
+
+Правильно 2:
+```js
+var doSomething = function () {
+    // function body
+};
+
+var doSomethingElse = function () {
+    // function body
+};
+```
+
+### Единый стиль именования
+Стиль именования сохраняется во всех модулях, например:
+- не следует мешать обработчики содержащие `Handler` и `on`
+- если переменные, которые хранят DOM-элемент содержат слово `Element`, то это правило работает везде:
+Неправильно:
+```js
+var popupMainElement = document.querySelector('.popup');
+var sidebarNode = document.querySelector('.sidebar');
+var similarContainer = popupMainElement.querySelector('ul.similar');
+```
+
+Правильно:
+```js
+var popupMainElement = document.querySelector('.popup');
+var sidebarElement = document.querySelector('.sidebar');
+var similarContainerElement = popupMainElement.querySelector('ul.similar');
+```
+
+### При использовании встроенного API, который поддерживает несколько вариантов использования, придерживаться одного способа
+Неправильно:
+```js
+var popupMainElement = document.querySelector('#popup');
+var sidebarElement = document.getElementById('sidebar');
+
+var popupClassName = popupMainElement.getAttribute('class');
+var sidebarClassName = sidebarElement.className
+
+```
+
+Правильно:
+```js
+var popupMainElement = document.querySelector('#popup');
+var sidebarElement = document.querySelector('#sidebar');
+```
+
+```js
+var popupClassName = popupMainElement.getAttribute('class');
+var sidebarClassName = sidebarElement.getAttribute('class');
+
+```
+
+или
+
+```js
+var popupMainElement = document.getElementById('popup');
+var sidebarElement = document.getElementById('sidebar');
+```
+
+```js
+var popupClassName = popupMainElement.className;
+var sidebarClassName = sidebarElement.className;
+
+```
+
+
+## Корректность
+
+### API встроенных функций и объектов используется правильно
+Передаются корректные значения, которые ожидаются по спецификации
+Неправильно:
+```js
+var isPressed = element.getAttribute('aria-pressed', false);
+```
+Правильно:
+```js
+var isPressed = element.getAttribute('aria-pressed');
+```
+Встроенные методы массивов используются по назаначению.
+Неправильно:
+```js
+var greet = 'Привет ';
+
+wizards.map(function (it) {
+  greet += ', ' + it.name;
+});
+
+console.log(greet + '!');
+```
+Правильно:
+```js
+var greet = 'Привет ';
+
+var names = wizards.map(function (it) {
+  return it.name;
+});
+
+console.log(greet + names.join(', ') + '!');
+```
+
+### Отсутствуют потенциально некорректные операции
+Например некорректное сложение двух операндов как строк. Проблема приоритета конкатенации над сложением. Например:
+Неправильно:
+```js
+new Date() + 1000;
+```
+Правильно:
+```js
++new Date() + 1000;
+```
+Некорректные проверки на существование с числами. 
+Пример некорректной проверки на то, что переменная является числом:
+```js
+var double = function (value) {
+  if(!value) {
+    return NaN;
+  }
+  
+  return value * 2;
+};
+
+double(0);
+double();
+double(5);
+```
+
+
+## Модульность
+
+### В случае, если одинаковый код повторяется в нескольких модулях, повторяющаяся часть вынесена в отдельный модуль
+Критерий касается структурных единиц код — повторяющийся блок кода, либо функции с одним и теми же констукциями, например утилитные методы для проверки клавиш:
+```js
+// Файл keyboard.js
+'use strict';
+
+(function () {
+  var ENTER_KEYCODE = 13;
+  var ESC_KEYCODE = 27;
+  
+  window.keyboard = {
+    isKeyBoardEvent: function (evt) {
+      return evt instanceof KeyboardEvent;
+    },
+    isEnterPressed: function (evt) {
+      return evt.keyCode === ENTER_KEYCODE;
+    },
+    isEscPressed: function (evt) {
+      return evt.keyCode === ESC_KEYCODE;
+    }
+  }
+})();
+```
+**Не стоит выносить в отдельный модуль одну повторяющуюся интсрукцию**:
+```js
+// Файл hide-gallery.js
+'use strict';
+
+(function () {
+  window.hideGallery = function (gallery) {
+    return gallery.classList.add('invisible');
+  }
+})();
+```
+
+### При экспорте из одного модуля нескольких значений используется пространство имен
+Множественные значения записываются в один объект. Имя объекта совпадает с именем файла без учета кейса.
+Неправильно:
+```js
+// Файл dialog-util.js
+'use strict';
+
+(function () {
+  var ENTER_KEYCODE = 13;
+  var ESC_KEYCODE = 27;
+  
+  window.isEnterPressed = function (evt) {
+    return evt.keyCode === ENTER_KEYCODE;
+  };
+  
+  window.isEscPressed = function (evt) {
+    return evt.keyCode === ESC_KEYCODE;
+  };
+})();
+```
+Правильно:
+```js
+// Файл dialog-util.js
+'use strict';
+
+(function () {
+  var ENTER_KEYCODE = 13;
+  var ESC_KEYCODE = 27;
+  
+  window.dialogUtil = {
+    isEnterPressed: function (evt) {
+      return evt.keyCode === ENTER_KEYCODE;
+    },
+    isEscPressed: function (evt) {
+      return evt.keyCode === ESC_KEYCODE;
+    }
+  }
+})();
+```
+
+### Во всех модулях для ограничения области видимости используются IIFE и только он
+Неправильно:
+```js
+'use strict';
+
+window.load = function (url, onLoad) {
+  var xhr = new XMLHttpRequest();
+  xhr.addEventListener('load', onLoad);
+
+  xhr.responseType = 'json';
+  xhr.open('GET', url);
+  xhr.send();
+};
+```
+
+Правильно:
+```js
+'use strict';
+
+window.load = (function() {
+  return function (url, onLoad) {
+    var xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onLoad);
+
+    xhr.responseType = 'json';
+    xhr.open('GET', url);
+    xhr.send();
+  };
+})()
+```
+
+
+## Избыточность
+
+### В проекте не должно быть избыточных проверок
+Например, если заранее известно, что функция всегда принимает числовой параметр, то не следует проверять его на существование:
+
+Неправильно:
+```js
+var isPositiveNumber = function (myNumber) {
+  if (typeof myNumber === 'undefined') {
+    throw new Error('Parameter is not defined');
+  }
+  return myNumber > 0;
+};
+
+isPositiveNumber(15);
+isPositiveNumber(-30);
+```
+
+Правильно:
+```js
+var isPositiveNumber = function (myNumber) {
+  return myNumber > 0;
+};
+
+isPositiveNumber(15);
+isPositiveNumber(-30);
+```
+
+### Отсутствует дублирование кода: повторяющиеся части кода переписаны как функции
+При написании кода следует придерживаться принципа [DRY](https://ru.wikipedia.org/wiki/Don%E2%80%99t_repeat_yourself)
+
+### Если при использовании условного оператора в любом случае возвращается значение, альтернативная ветка опускается
+Неправильно:
+```js
+if (2 > 1) {
+  return val;
+} else {
+  return anotherVal;
+}
+```
+
+Правильно:
+```js
+if (2 > 1) {
+  return val;
+}
+
+return anotherVal;
+```
+
+### Отсутствуют лишние приведения и проверки типов
+Если заранее известно что в переменной число, то нет смысла превращать переменную в число `parseInt(myNumber)`. Тоже касается и избыточной проверки булевой переменной:
+Неправильно:
+```js
+if (booleanValue === true) {
+  console.log('It\'s true!');
+}
+```
+
+Правильно:
+```js
+if (booleanValue) {
+  console.log('It\'s true!');
+}
+```
+
+### Там где возможно, в присвоении значени вместо if используется тернарный оператор
+Неправильно:
+```js
+var sex;
+if (male) { 
+  sex = 'Мужчина';
+} else { 
+  sex = 'Женщина';
+}
+```
+Правильно:
+```js
+var sex = male ? 'Мужчина' : 'Женщина';
+```
+ 
+### Условия упрощены
+Если функция возвращает булево значение, не используется `if..else` с лишними `return`:
+Неправильно:
+```js
+if (firstValue === secondValue) {
+  return true;
+} else {
+  return false;
+}
+```
+Правильно:
+```js
+return firstValue === secondValue;
+```
+
+
+## Магия
+
+### В коде не используются «магические значения», под каждое из них заведена отдельная переменная, названная как константа
+
+
+## Оптимальность
+
+### Константы, используемые внутри функций создаются вне функций и используются повторно через замыкания
+
+### Поиск элементов по селекторам делается минимальное количество раз, после этого ссылки на элементы сохраняются
 
 Неправильно:
 ```js
@@ -768,9 +806,9 @@ for (var i = 0; i < Math.min(apartments.length, 3); i++) {
 }
 ```
 
-### Сложные массивы и объекты, содержимое которых вычисляется, собираются один раз, а после этого только переиспользуются (доп)
+### Сложные массивы и объекты, содержимое которых вычисляется, собираются один раз, а после этого только переиспользуются
 
-### Точечно применять изменения (доп)
+### Точечно применять изменения
 Не удалять массово классы, если можно убрать лишь предыдущий
 
 Неправильно:
@@ -797,28 +835,13 @@ var changeFilter = function (filterName) {
 };
 ```
 
-### Тонкие оптимизации (доп)
-Очень тонкий критерий про, то как не надо делать
-Например:
-```js
-var wizardNames = source.map(function (it) {
-    return it.wizard;
-  }).map(function (it) {
-    return it.name; 
-  });
-```
-
-```js
-var names = names.concat(['Новое имя']);
-```
-
 
 ## Сложность. Читаемость.
 
-### Не используется один обработчик для разных событий (доп)
+### Не используется один обработчик для разных событий
 Одна функция не является обработчиком нескольких разных событий
 
-### Длинные функции и методы разбиты на несколько небольших (доп)
+### Длинные функции и методы разбиты на несколько небольших
 
 ### Для работы с JS-коллекциями используются итераторы для массивов
 Итераторы используются для трансфорамаций массивов — `map`, `filter`, `sort` и прочие. А также для обхода проблемы потери окружения в циклах — `forEach`.
@@ -831,7 +854,7 @@ elements.forEach(function (el) {
 });
 ```
 
-### Оператор присваивания не используется как часть выражения (доп)
+### Оператор присваивания не используется как часть выражения
 Неправильно:
 ```js
 imgGenerate(picArray = JSON.parse(data));
@@ -842,18 +865,3 @@ imgGenerate(picArray = JSON.parse(data));
 picArray = JSON.parse(data);
 imgGenerate(picArray);
 ```
-
-
-## Безопасность
-
-### Следить за подвешиванием и снятием обработчиков
-Обработчики событий для виджетов добавляются только в момент появления виджета на странице и удаляются в момент их исчезновения.
-
-**Защита от `memory-leak`**  
-Кол-во обработчиков подвешенных на глобальную область видимости не должно возрастать. Например, если подвешивается обработчик, который следит за перемещением курсора по экрану, то он должен подвешиваться и отвешиваться в нужный момент. В случае если обработчик на `document` только подвешивается это может свидетельствовать о проблеме бесконечного создания обработчиков и потенциальной утечке памяти.
-
-**Защита от неправильного поведения интерфейса**
- Например, на странице может существовать попап, который скрывается по `Esc`. Лучше для него гасить обработчик, если он не показан, потому что он может каким-то образом ломать поведение сайта — останавливать распространение, отменять дефолтное поведение и т.д. Поэтому поведение должно быть **явным** — если в этот момент времени обработчики не нужны, их нужно удалить. Явное и предсказуемое поведение.
-
-### Запрещено использовать `innerHTML` и подобные ему свойства и методы для вставки пользовательских строк (имён, фамилий и т.д.)
-Защита от XSS-атак, а также изменения исходных данных, запутывание пользователя и прочее
