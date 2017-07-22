@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
-group :jekyll_plugins do
-  gem "minimal-mistakes-jekyll"
-end
+source "https://rubygems.org"
+
+gem "jekyll", "~> 3.3.0"
+gem "minimal-mistakes-jekyll"
