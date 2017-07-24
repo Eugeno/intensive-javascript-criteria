@@ -364,7 +364,7 @@ var wizardNames = source.map(function (it) {
 
 
 
-# Дополнительные
+# Дополнительные критерии
 
 
 ## Именование
