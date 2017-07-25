@@ -155,8 +155,9 @@ for (const it of proceed(iter)) {
 }
 
 const INDEX_HEADER = `intro: |
-    <link rel="stylesheet" href="/path/to/styles/default.css">
-    <script src="/path/to/highlight.pack.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/javascript.min.js" integrity="sha256-sZa6ttk3lwj5MNkWzq2VrQ6WFB965Gn0uLe3oUBH2Iw=" crossorigin="anonymous"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <h2 class="m-b-2">Введение</h2>
 
