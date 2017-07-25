@@ -155,6 +155,9 @@ for (const it of proceed(iter)) {
 }
 
 const INDEX_HEADER = `intro: |
+    <link rel="stylesheet" href="/path/to/styles/default.css">
+    <script src="/path/to/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
     <h2 class="m-b-2">Введение</h2>
 
     <p>Итоговая оценка разбита на две составляющие: базовая и дополнительная.</p>
