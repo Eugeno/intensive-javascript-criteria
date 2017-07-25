@@ -23,13 +23,19 @@ const CRITERIA_TYPE = {
 };
 
 const mdFilePath = process.argv[2];
+let errorMessage;
 if (!mdFilePath) {
-  throw new Error(`*.md file path is not passed`);
+  errorMessage = `*.md file path is not passed`;
 }
 
 const mdFile = fs.readFileSync(mdFilePath, `utf-8`);
 if (!mdFile) {
-  throw new Error(`Unable to find *.md file: ${mdFilePath}`);
+  errorMessage = `Unable to find *.md file: ${mdFilePath}`;
+}
+
+if(errorMessage) {
+  console.error(errorMessage);
+  console.log(`Usage: md2yaml <path to *.md file>`);
 }
 
 const reader = new CommonMark.Parser();
