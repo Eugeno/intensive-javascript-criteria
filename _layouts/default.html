@@ -1,25 +1,16 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: "ru" }}" class="no-js">
-<head>
-    {% include head.html %}
-    {% include head/custom.html %}
-</head>
+<html lang="{{ page.lang | default: site.lang | default: "ru" }}">
 
-<body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}">
+{% include head.html %}
 
-{% include browser-upgrade.html %}
-{% include masthead.html %}
+<body>
 
-{{ content }}
-
-<div class="page__footer">
-    <footer>
-        {% include footer/custom.html %}
-        {% include footer.html %}
-    </footer>
-</div>
-
-{% include scripts.html %}
+<main class="page-content" aria-label="Content">
+    <div class="wrapper">
+        {{ content }}
+    </div>
+</main>
 
 </body>
+
 </html>
