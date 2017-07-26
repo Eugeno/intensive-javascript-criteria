@@ -1,26 +1,8 @@
 const CommonMark = require(`commonmark`);
 const fs = require(`fs`);
-
-const Type = {
-  HEADING: `heading`
-};
-
-const Level = {
-  TYPE: 1,
-  SECTION: 2,
-  CRITERIA: 3
-};
-
-const CRITERIA_TYPE = {
-  BASIC: {
-    type: `basic`,
-    name: `Базовые критерии`
-  },
-  ADVANCED: {
-    type: `advanced`,
-    name: `Дополнительные критерии`
-  }
-};
+const {Type, Level, CriteriaType} = require(`./lib/constant`);
+const Criteria = require(`./lib/criteria`);
+const {iterator, proceed, readName, skipTo, indent} = require(`./lib/util`);
 
 const mdFilePath = process.argv[2];
 let errorMessage;
@@ -37,77 +19,6 @@ if(errorMessage) {
   console.error(errorMessage);
   console.log(`Usage: md2yaml <path to *.md file>`);
 }
-
-const reader = new CommonMark.Parser();
-const writer = new CommonMark.HtmlRenderer({sourcepos: true});
-const parsed = reader.parse(mdFile);
-
-class Criteria {
-  constructor(name) {
-    this.name = name;
-    this.description = [];
-    this.instruction = [];
-  }
-
-  addDescription(node) {
-    this.description.push(node);
-  }
-
-  addInstruction(node) {
-    this.instruction.push(node);
-  }
-
-
-  print() {
-    return `title: |
-${this.name}
-description: |
-${Criteria.toHTML(this.description)}
-instruction: |
-${Criteria.toHTML(this.instruction)}
-`;
-  }
-
-  static toHTML(nodes) {
-    const doc = reader.parse(``);
-    for (const node of nodes) {
-      doc.appendChild(node);
-    }
-    return writer.render(doc);
-  }
-
-}
-
-const iterator = function*(node) {
-  for (let it = node.firstChild; (it = it.next) !== null;) {
-    yield it;
-  }
-};
-
-
-const proceed = function*(iterator) {
-  //noinspection EqualityComparisonWithCoercionJS
-  for (let it; !((it = iterator.next()).done);) {
-    yield it.value;
-  }
-};
-
-const readName = (node) => node.firstChild.literal;
-
-const readCriteria = (node, iterator) => {
-  const criteria = new Criteria(readName(node));
-
-  for (const it of proceed(iterator)) {
-    criteria.addDescription(it);
-
-    const next = it.next;
-    if (next && next.type === Type.HEADING) {
-      break;
-    }
-  }
-
-  return criteria;
-};
 
 const walk = (iterator) => {
   let currentType;
@@ -128,7 +39,7 @@ const walk = (iterator) => {
           break;
         case Level.CRITERIA:
           const criterias = map[currentType][currentSection];
-          criterias.push(readCriteria(node, iterator));
+          criterias.push(Criteria.read(node, iterator));
           break;
         default:
           throw new Error(`Unknown level: ${node.level}`);
@@ -138,21 +49,6 @@ const walk = (iterator) => {
 
   return map;
 };
-
-const iter = iterator(parsed);
-for (const it of proceed(iter)) {
-  const {
-    next: {
-      firstChild: {
-        literal
-      }
-    }
-  } = it;
-
-  if (literal && literal.trim() === CRITERIA_TYPE.BASIC.name) {
-    break;
-  }
-}
 
 const INDEX_HEADER = `intro: |
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
@@ -166,9 +62,6 @@ const INDEX_HEADER = `intro: |
     <p>Базовая оценка предполагает перепроверку некоторых важных критериев. При условии, что они выполнены, выставляется базовая оценка и наставник переходит к дополнительной оценке.</p>
 
     <p>Дополнительная оценка выставляется по дополнительным критериям. Дополнительные критерии оценивают проект с точки зрения шлифовки его качества и оптимизации, и выстроены по принципу перфекционизма. Мы не требуем сделать проект идеально, но набрать максимальное количество баллов возможно.</p>`;
-
-const STEP = 4;
-const indent = (ind) => new Array(ind * STEP).join(` `);
 
 let criteriaNumber = 0;
 const include = function (criteria, type) {
@@ -188,10 +81,10 @@ ${indent(2)}criteries:
 ${indent(3)}${section.criteries.map((it) => printCriteria(it, type)).join(`\n${indent(3)}`)}`;
 };
 
-const print = (map) => {
+const write = (map) => {
   let indexContent = INDEX_HEADER;
-  for (const key of Object.keys(CRITERIA_TYPE)) {
-    const criteriaType = CRITERIA_TYPE[key];
+  for (const key of Object.keys(CriteriaType)) {
+    const criteriaType = CriteriaType[key];
     const type = map[criteriaType.name];
     if (type) {
       fs.mkdirSync(criteriaType.type);
@@ -202,11 +95,15 @@ ${Object.keys(type).map((it) => printSection({title: it, criteries: type[it]}, c
   fs.writeFileSync(`index.yaml`, indexContent);
 };
 
+const reader = new CommonMark.Parser();
+const parsed = reader.parse(mdFile);
 
+const iter = iterator(parsed);
+// skipTo(iter, CriteriaType.BASIC.name);
 
 const result = walk(iter);
 
-print(result);
+write(result);
 
 
 
