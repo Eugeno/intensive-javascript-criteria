@@ -46,6 +46,12 @@ ${Criteria.toHTML(this.instruction)}
   static read(node, iterator) {
     const criteria = new Criteria(node);
 
+    const next = node.next;
+    if (next && next.type === Type.HEADING) {
+      // in case there is no description
+      return criteria;
+    }
+
     let section = criteria.description;
     for (const it of proceed(iterator)) {
       if (it.type === Type.THEMATIC_BREAK) {
