@@ -1,5 +1,7 @@
 const Type = {
-  HEADING: `heading`
+  HEADING: `heading`,
+  EMPHASIS: `emph`,
+  THEMATIC_BREAK: `thematic_break`
 };
 
 const Level = {

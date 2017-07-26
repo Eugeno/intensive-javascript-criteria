@@ -2,7 +2,7 @@ const CommonMark = require(`commonmark`);
 const fs = require(`fs`);
 const {Type, Level, CriteriaType} = require(`./lib/constant`);
 const Criteria = require(`./lib/criteria`);
-const {iterator, proceed, readName, skipTo, indent} = require(`./lib/util`);
+const {iterator, proceed, readName, indent} = require(`./lib/util`);
 
 const mdFilePath = process.argv[2];
 let errorMessage;
@@ -99,7 +99,6 @@ const reader = new CommonMark.Parser();
 const parsed = reader.parse(mdFile);
 
 const iter = iterator(parsed);
-// skipTo(iter, CriteriaType.BASIC.name);
 
 const result = walk(iter);
 

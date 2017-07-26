@@ -1,15 +1,19 @@
 const CommonMark = require(`commonmark`);
-const {readName, proceed} = require(`./util`);
+const {proceed} = require(`./util`);
 const {Type} = require(`./constant`);
 
 const reader = new CommonMark.Parser();
 const writer = new CommonMark.HtmlRenderer({sourcepos: true});
 
 module.exports = class Criteria {
-  constructor(name) {
-    this.name = name;
+  constructor(titleNode) {
+    this.titleNode = titleNode;
     this.description = [];
     this.instruction = [];
+  }
+
+  get name() {
+    return Criteria.toHTML([this.titleNode]);
   }
 
   addDescription(node) {
@@ -40,10 +44,15 @@ ${Criteria.toHTML(this.instruction)}
   }
 
   static read(node, iterator) {
-    const criteria = new Criteria(readName(node));
+    const criteria = new Criteria(node);
 
+    let section = criteria.description;
     for (const it of proceed(iterator)) {
-      criteria.addDescription(it);
+      if (it.type === Type.THEMATIC_BREAK) {
+        section = criteria.instruction; // skip current node
+      } else {
+        section.push(it);
+      }
 
       const next = it.next;
       if (next && next.type === Type.HEADING) {
