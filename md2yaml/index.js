@@ -51,9 +51,8 @@ const walk = (iterator) => {
 };
 
 const INDEX_HEADER = `intro: |
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/javascript.min.js" integrity="sha256-sZa6ttk3lwj5MNkWzq2VrQ6WFB965Gn0uLe3oUBH2Iw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/highlight.min.css" />
+    <script src="/static/js/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <h2 class="m-b-2">Введение</h2>
 
@@ -92,7 +91,7 @@ const write = (map) => {
 ${Object.keys(type).map((it) => printSection({title: it, criteries: type[it]}, criteriaType)).join(`\n`)}`;
     }
   }
-  fs.writeFileSync(`index.yaml`, indexContent);
+  fs.writeFileSync(`index.yaml`, indexContent + '\n');
 };
 
 const reader = new CommonMark.Parser();

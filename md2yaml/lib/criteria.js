@@ -5,6 +5,19 @@ const {Type} = require(`./constant`);
 const reader = new CommonMark.Parser();
 const writer = new CommonMark.HtmlRenderer({sourcepos: true});
 
+const getChildren = (node) => {
+  node = node.firstChild;
+  const result = [];
+  do {
+    result.push(node);
+  } while (node = node.next)
+  return result;
+};
+
+const indent = (block) => {
+  return block.split(`\n`).map((line)=>`  ${line}`).join(`\n`);
+};
+
 module.exports = class Criteria {
   constructor(titleNode) {
     this.titleNode = titleNode;
@@ -13,25 +26,16 @@ module.exports = class Criteria {
   }
 
   get name() {
-    return Criteria.toHTML([this.titleNode]);
+    return Criteria.toHTML(getChildren(this.titleNode));
   }
-
-  addDescription(node) {
-    this.description.push(node);
-  }
-
-  addInstruction(node) {
-    this.instruction.push(node);
-  }
-
 
   print() {
     return `title: |
-${this.name}
+  ${this.name}
 description: |
-${Criteria.toHTML(this.description)}
+${indent(Criteria.toHTML(this.description))}
 instruction: |
-${Criteria.toHTML(this.instruction)}
+${indent(Criteria.toHTML(this.instruction))}
 `;
   }
 
