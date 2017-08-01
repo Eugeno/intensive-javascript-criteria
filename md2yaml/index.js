@@ -62,23 +62,8 @@ const INDEX_HEADER = `intro: |
 
     <p>Дополнительная оценка выставляется по дополнительным критериям. Дополнительные критерии оценивают проект с точки зрения шлифовки его качества и оптимизации, и выстроены по принципу перфекционизма. Мы не требуем сделать проект идеально, но набрать максимальное количество баллов возможно.</p>`;
 
-let criteriaNumber = 0;
-const include = function (criteria, type) {
-  const filePath = `${type.type}/${criteriaNumber}.yaml`;
-  fs.writeFileSync(filePath, criteria.print());
-  return filePath;
-};
 
-const printCriteria = (criteria, type) => `${criteriaNumber++}: @include: ${include(criteria, type)}`;
-
-let sectionNumber = 0;
-const printSection = (section, type) => {
-  const title = section.title;
-  return `${indent(1)}${sectionNumber++}:
-${indent(2)}title: ${title}
-${indent(2)}criteries:
-${indent(3)}${section.criteries.map((it) => printCriteria(it, type)).join(`\n${indent(3)}`)}`;
-};
+const {printSection} = require(`./lib/printer`);
 
 const write = (map) => {
   let indexContent = INDEX_HEADER;
