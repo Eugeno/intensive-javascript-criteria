@@ -15,9 +15,11 @@ if (!mdFile) {
   errorMessage = `Unable to find *.md file: ${mdFilePath}`;
 }
 
+const outDirPath = process.argv[3] || `./out`;
+
 if (errorMessage) {
   console.error(errorMessage);
-  console.log(`Usage: md2yaml <path to *.md file>`);
+  console.log(`Usage: md2yaml <path to *.md file> [out dir path]`);
 }
 
 const walk = (iterator) => {
@@ -57,7 +59,7 @@ const parsed = reader.parse(mdFile);
 
 const result = walk(iterator(parsed));
 
-printAll(result);
+printAll(result, outDirPath);
 
 
 
