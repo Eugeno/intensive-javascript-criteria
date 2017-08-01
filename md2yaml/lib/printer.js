@@ -23,7 +23,7 @@ ${indent(3)}${section.criteries.map((it) => printCriteria(it, dir)).join(`\n${in
 };
 
 const printAll = (map, dir = `./`) => {
-  let indexContent = INDEX_HEADER;
+  const contents = [INDEX_HEADER];
   for (const key of Object.keys(CriteriaType)) {
     const criteriaType = CriteriaType[key];
     const sectionMap = map[criteriaType.name];
@@ -31,13 +31,14 @@ const printAll = (map, dir = `./`) => {
       const type = criteriaType.type;
       const sectionPath = path.join(dir, type);
       fileUtil.mkDir(sectionPath);
-      indexContent += `\n${type}:
-${Object.keys(sectionMap).
-         map((it) => printSection({title: it, criteries: sectionMap[it]}, sectionPath)).
-         join(`\n`)}`;
+      contents.push(`${type}:`);
+      for (const sectionKey of Object.keys(sectionMap)) {
+        contents.push(printSection({title: sectionKey, criteries: sectionMap[sectionKey]}, sectionPath));
+      }
     }
   }
-  fileUtil.writeFile(path.join(dir, `index.yaml`), `${indexContent}\n`);
+  contents.push(``);
+  fileUtil.writeFile(path.join(dir, `index.yaml`), contents.join(`\n`));
 };
 
 
