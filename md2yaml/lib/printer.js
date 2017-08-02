@@ -22,19 +22,26 @@ ${indent(2)}criteries:
 ${indent(3)}${section.criteries.map((it) => printCriteria(it, dir)).join(`\n${indent(3)}`)}`;
 };
 
+const printType = (criteriaType, typeMap, dir) => {
+  criteriaNumber = 0;
+  const contents = [];
+  const type = criteriaType.type;
+  const sectionPath = path.join(dir, type);
+  fileUtil.mkDir(sectionPath);
+  contents.push(`${type}:`);
+  for (const sectionKey of Object.keys(typeMap)) {
+    contents.push(printSection({title: sectionKey, criteries: typeMap[sectionKey]}, sectionPath));
+  }
+  return contents.join(`\n`);
+};
+
 const printAll = (map, dir = `./`) => {
   const contents = [INDEX_HEADER];
   for (const key of Object.keys(CriteriaType)) {
     const criteriaType = CriteriaType[key];
-    const sectionMap = map[criteriaType.name];
-    if (sectionMap) {
-      const type = criteriaType.type;
-      const sectionPath = path.join(dir, type);
-      fileUtil.mkDir(sectionPath);
-      contents.push(`${type}:`);
-      for (const sectionKey of Object.keys(sectionMap)) {
-        contents.push(printSection({title: sectionKey, criteries: sectionMap[sectionKey]}, sectionPath));
-      }
+    const criteriaTypeMap = map[criteriaType.name];
+    if (criteriaTypeMap) {
+      contents.push(printType(criteriaType, criteriaTypeMap, dir));
     }
   }
   contents.push(``);
