@@ -7,8 +7,8 @@
 
 ## Задача
 
-### Код соответствует ТЗ проекта
-Все обязательные пункты ТЗ выполнены
+### Код соответствует техническому заданию проекта
+Все обязательные пункты техническому заданию выполнены
 
 ### При выполнении кода не возникает необработанных ошибок
 При открытии диалогов, загрузки данных и работе с сайтом не возникает ошибок, программа не ломается и не зависает
@@ -19,11 +19,11 @@
 ### Название переменных, параметров, свойств и методов начинается со строчной буквы и записываются в нотации [camelcase](https://ru.wikipedia.org/wiki/CamelCase) 
 
 ### Для названия значений используются английские существительные
-Сокращения в словах запрещены. Сокращенные названия переменных можно использовать только, если такое название широко распространено. Допустимые сокращения:
+Сокращения в словах запрещены. Сокращённые названия переменных можно использовать только, если такое название широко распространено. Допустимые сокращения:
 - `xhr`, для объектов `XMLHttpRequest`
 - `evt` для объектов `Event` и его производных (`MouseEvent`, `KeyboardEvent` и подобные)
 - `ctx` для контекста канваса
-- `i`, `j`, `k`, `l`, `t` для счетчика в цикле, `j` для счетчика во вложенном цикле и так далее по алфавиту
+- `i`, `j`, `k`, `l`, `t` для счётчика в цикле, `j` для счётчика во вложенном цикле и так далее по алфавиту
 - если циклов два и более, то можно не переиспользовать переменную `i`
 - `cb` для единственного коллбэка в параметрах функции
 
@@ -36,7 +36,7 @@ var name = ['Иван', 'Петр', 'Мария', 'Алексей'];
 var wizard = {
   name: 'Гендальф',
   friend: ['Саурон', 'Фродо', 'Бильбо']
-}
+};
 ```
 
 Правильно:
@@ -47,7 +47,7 @@ var names = ['Иван', 'Петр', 'Мария', 'Алексей'];
 var wizard = {
   name: 'Гендальф',
   friends: ['Саурон', 'Фродо', 'Бильбо']
-}
+};
 ```
 
 ### Название функции или метода содержит глагол
@@ -59,7 +59,7 @@ var wizard = {
 
 Неправильно:
 ```js
-var function1 = function(names) {
+var function1 = function (names) {
   names.forEach(function (name) {
     console.log(name);
   });
@@ -72,14 +72,14 @@ var wizard = {
   }
 };
 
-var randomNumber = function() {
+var randomNumber = function () {
   return Math.random();
-}
+};
 ```
 
 Правильно:
 ```js
-var printNames = function(names) {
+var printNames = function (names) {
   names.forEach(function (name) {
     console.log(name);
   });
@@ -92,13 +92,13 @@ var wizard = {
   }
 };
 
-var getRandomNumber = function() {
+var getRandomNumber = function () {
   return Math.random();
-}
+};
 ```
 
 ### Названия констант (постоянных значений) написаны прописными (заглавными) буквами
-Слова разделяются подчеркиваниями (`UPPER_SNAKE_CASE`), например:
+Слова разделяются подчёркиваниями (`UPPER_SNAKE_CASE`), например:
  ```js
  var MAX_HEIGHT = 400;
  var EARTH_RADIUS = 6370;
@@ -114,7 +114,7 @@ var wizard = function (name, age) {
   this.age = age;
 };
 
-var Fly = function(coordinate) {
+var Fly = function (coordinate) {
   console.log('Смотрите я лечу!');
 };
 ```
@@ -126,7 +126,7 @@ var Wizard = function (name, age) {
   this.age = age;
 };
 
-var fly = function(coordinate) {
+var fly = function (coordinate) {
   console.log('Смотрите я лечу!');
 };
 ```
@@ -139,13 +139,15 @@ var fly = function(coordinate) {
 
 Неправильно:
 ```js
-if (x % 2 === 1) return;
+var isEven = true;
+if (x % 2 === 1) isEven = false;
 ```
 
 Правильно:
 ```js
+var isEven = true;
 if (x % 2 === 1) {
-  return;
+  isEven = false;
 }
 ```
 
@@ -180,8 +182,10 @@ if (happen) {
 
 - Операции после выхода из функции:
 ```js
-return;
-console.log('This will not happen!');
+(function () {
+  return;
+  console.log('This will not happen!');
+})();
 ```
 
 
@@ -190,7 +194,7 @@ console.log('This will not happen!');
 ### Константы нигде в коде не переопределяются
 Константы используются только для чтения, и никогда не переопределяются на всем промежутке жизни программы
 
-### Включен строгий режим (ESLint)
+### Включён строгий режим (ESLint)
 В коде запрещены небезопасные конструкции. Код работает в [строгом режиме](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Strict_mode). В начале js-файлов установлена директива `'use strict';`
 
 ### Используются строгие сравнения вместо нестрогих (ESLint)
@@ -214,7 +218,7 @@ if (foo === bar) {
 }
 ```
 
-### В коде не используются зарезервированные слова в качестве имен переменных и свойств
+### В коде не используются зарезервированные слова в качестве имён переменных и свойств
 В названия переменных и свойств не включаются операторы и ключевые слова зарезервированные для будущих версий языка (например, `class`, `extends`).
 Список всех зарезервированных слов можно найти [тут](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords)   
 
@@ -225,20 +229,21 @@ if (foo === bar) {
 Файлы скриптов подключаются перед закрывающимся тегом `</body>`, атрибуты `async` и `defer` не используются
 
 ### Все файлы JS представляют собой отдельные модули в [IIFE](developer.mozilla.org/ru/docs/Web/JavaScript/A_re-introduction_to_JavaScript#%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8)
-Экспорт значений производится через глобальную область видимости. Код вне модуля запрещен. Вне модуля могут распологаться комментарии и утилитные инструкции, такие как `'use strict';`
+Экспорт значений производится через глобальную область видимости. Код вне модуля запрещён. Вне модуля могут располагаться комментарии и утилитные инструкции, такие как `'use strict';`
 
 Пример правильного модуля:
 ```js
 'use strict';
-(function (){
-window.load = function (url, onLoad) {
-  var xhr = new XMLHttpRequest();
-  xhr.addEventListener('load', onLoad);
 
-  xhr.responseType = 'json';
-  xhr.open('GET', url);
-  xhr.send();
-};
+(function () {
+  window.load = function (url, onLoad) {
+    var xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onLoad);
+  
+    xhr.responseType = 'json';
+    xhr.open('GET', url);
+    xhr.send();
+  };
 })();
 ```
 
@@ -333,17 +338,17 @@ for (var i = 0; i < Math.min(apartments.length, 3); i++) {
 Неправильно:
 ```js
 var wizardNames = source.map(function (it) {
-    return it.wizard;
-  }).map(function (it) {
-    return it.name; 
-  });
+  return it.wizard;
+}).map(function (it) {
+  return it.name; 
+});
 ```
 
 Правильно:
 ```js
 var wizardNames = source.map(function (it) {
-    return it.wizard.name;
-  });
+  return it.wizard.name;
+});
 ```
 
 ### Множественные DOM-операции производятся на элементах, которые не добавлены в DOM 
@@ -359,7 +364,7 @@ var wizardNames = source.map(function (it) {
 Кол-во обработчиков подвешенных на глобальную область видимости не должно возрастать. Например, если подвешивается обработчик, который следит за перемещением курсора по экрану, то он должен подвешиваться и отвешиваться в нужный момент. В случае если обработчик на `document` только подвешивается это может свидетельствовать о проблеме бесконечного создания обработчиков и потенциальной утечке памяти.
 
 **Защита от неправильного поведения интерфейса**
- Например, на странице может существовать попап, который скрывается по `ESC`. Лучше для него гасить обработчик, если он не показан, потому что он может каким-то образом ломать поведение сайта — останавливать распространение, отменять дефолтное поведение и т.д. Поэтому поведение должно быть **явным** — если в этот момент времени обработчики не нужны, их нужно удалить. Явное и предсказуемое поведение.
+ Например, на странице может существовать попап, который скрывается по `ESC`. Лучше для него гасить обработчик, если он не показан, потому что он может каким-то образом ломать поведение сайта — останавливать распространение, отменять поведение по умолчанию и т.д. Поэтому поведение должно быть **явным** — если в этот момент времени обработчики не нужны, их нужно удалить. Явное и предсказуемое поведение.
 
 ### Запрещено использовать `innerHTML` и подобные ему свойства и методы для вставки пользовательских строк (имён, фамилий и т.д.)
 Защита от XSS-атак, а также изменения исходных данных, запутывание пользователя и прочее
@@ -377,20 +382,20 @@ var wizardNames = source.map(function (it) {
 ```js
 var keks = {
   name: 'Кекс'
-}
+};
 ```
 
 Правильно:
 ```js
 var cat = {
   name: 'Кекс'
-}
+};
 ```
 
 ### Название методов и свойств объектов не содержит название объектов 
 Неправильно:
 ```js
-popup.openPopup = function() {
+popup.openPopup = function () {
   console.log('I will open popup');
 };
 wizard.wizardName = 'Пендальф';
@@ -398,7 +403,7 @@ wizard.wizardName = 'Пендальф';
 
 Правильно
 ```js
-popup.open = function() {
+popup.open = function () {
   console.log('I will open popup');
 };
 wizard.name = 'Пендальф';
@@ -409,18 +414,18 @@ wizard.name = 'Пендальф';
  - `on` + (на каком элементе) + что случилось:
  
 ```js
- var onSidebarClick;
- var onContentLoad;
- 
- var onResize;
+var onSidebarClick;
+var onContentLoad;
+
+var onResize;
 ```
  - (на каком элементе) + что случилось + `Handler`:
  
 ```js
- var sidebarClickHandler;
- var contentLoadHandler;
- 
- var resizeHandler;
+var sidebarClickHandler;
+var contentLoadHandler;
+
+var resizeHandler;
 ```
 
 
@@ -432,7 +437,7 @@ wizard.name = 'Пендальф';
 Неправильно:
 ```js
 var doSomethingElse = function () {
-    // function body
+  // function body
 };
 
 function doSomething() {
@@ -443,11 +448,11 @@ function doSomething() {
 Правильно:
 ```js
 var doSomething = function () {
-    // function body
+  // function body
 };
 
 var doSomethingElse = function () {
-    // function body
+  // function body
 };
 ```
 
@@ -532,7 +537,7 @@ var isPressed = element.getAttribute('aria-pressed', false);
 ```js
 var isPressed = element.getAttribute('aria-pressed');
 ```
-Встроенные методы массивов используются по назаначению.
+Встроенные методы массивов используются по назначению.
 
 Неправильно:
 ```js
@@ -570,7 +575,7 @@ new Date() + 1000;
 Пример некорректной проверки на то, что переменная является числом:
 ```js
 var double = function (value) {
-  if(!value) {
+  if (!value) {
     return NaN;
   }
   
@@ -605,10 +610,10 @@ double(5);
     isEscPressed: function (evt) {
       return evt.keyCode === ESC_KEYCODE;
     }
-  }
+  };
 })();
 ```
-**Не стоит выносить в отдельный модуль одну повторяющуюся интсрукцию**:
+**Не стоит выносить в отдельный модуль одну повторяющуюся инструкцию**:
 ```js
 // Файл hide-gallery.js
 'use strict';
@@ -616,12 +621,12 @@ double(5);
 (function () {
   window.hideGallery = function (gallery) {
     return gallery.classList.add('invisible');
-  }
+  };
 })();
 ```
 
-### При экспорте из одного модуля нескольких значений используется пространство имен
-Множественные значения записываются в один объект. Имя объекта совпадает с именем файла без учета кейса.
+### При экспорте из одного модуля нескольких значений используется пространство имён
+Множественные значения записываются в один объект. Имя объекта совпадает с именем файла без учёта кейса.
 Неправильно:
 ```js
 // Файл dialog-util.js
@@ -656,7 +661,7 @@ double(5);
     isEscPressed: function (evt) {
       return evt.keyCode === ESC_KEYCODE;
     }
-  }
+  };
 })();
 ```
 
@@ -679,7 +684,7 @@ window.load = function (url, onLoad) {
 ```js
 'use strict';
 
-(function() {
+(function () {
   window.load = function (url, onLoad) {
     var xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onLoad);
@@ -726,20 +731,24 @@ isPositiveNumber(-30);
 ### Если при использовании условного оператора в любом случае возвращается значение, альтернативная ветка опускается
 Неправильно:
 ```js
-if (2 > 1) {
-  return val;
-} else {
-  return anotherVal;
-}
+var decide = function (val, anotherVal) {
+  if (2 > 1) {
+    return val;
+  } else {
+    return anotherVal;
+  }
+};
 ```
 
 Правильно:
 ```js
-if (2 > 1) {
-  return val;
-}
-
-return anotherVal;
+var decide = function (val, anotherVal) {
+  if (2 > 1) {
+    return val;
+  }
+  
+  return anotherVal;
+};
 ```
 
 ### Отсутствуют лишние приведения и проверки типов
@@ -779,15 +788,19 @@ var sex = male ? 'Мужчина' : 'Женщина';
 
 Неправильно:
 ```js
-if (firstValue === secondValue) {
-  return true;
-} else {
-  return false;
-}
+var equals = function (firstValue, secondValue) {
+  if (firstValue === secondValue) {
+    return true;
+  } else {
+    return false;
+  }
+};
 ```
 Правильно:
 ```js
-return firstValue === secondValue;
+var equals = function (firstValue, secondValue) {
+  return firstValue === secondValue;
+};
 ```
 
 
@@ -857,14 +870,14 @@ var changeFilter = function (filterName) {
 ### Длинные функции и методы разбиты на несколько небольших
 
 ### Для работы с JS-коллекциями используются итераторы для массивов
-Итераторы используются для трансфорамаций массивов — `map`, `filter`, `sort` и прочие. А также для обхода проблемы потери окружения в циклах — `forEach`
+Итераторы используются для трансформаций массивов — `map`, `filter`, `sort` и прочие. А также для обхода проблемы потери окружения в циклах — `forEach`
 
 Например:
 ```js
 elements.forEach(function (el) {
   el.onclick = function () {
     console.log(el);
-  }
+  };
 });
 ```
 
