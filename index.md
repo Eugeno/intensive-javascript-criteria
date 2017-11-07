@@ -36,7 +36,7 @@ var name = ['Иван', 'Петр', 'Мария', 'Алексей'];
 var wizard = {
   name: 'Гендальф',
   friend: ['Саурон', 'Фродо', 'Бильбо']
-}
+};
 ```
 
 Правильно:
@@ -47,7 +47,7 @@ var names = ['Иван', 'Петр', 'Мария', 'Алексей'];
 var wizard = {
   name: 'Гендальф',
   friends: ['Саурон', 'Фродо', 'Бильбо']
-}
+};
 ```
 
 ### Название функции или метода содержит глагол
@@ -59,7 +59,7 @@ var wizard = {
 
 Неправильно:
 ```js
-var function1 = function(names) {
+var function1 = function (names) {
   names.forEach(function (name) {
     console.log(name);
   });
@@ -72,14 +72,14 @@ var wizard = {
   }
 };
 
-var randomNumber = function() {
+var randomNumber = function () {
   return Math.random();
-}
+};
 ```
 
 Правильно:
 ```js
-var printNames = function(names) {
+var printNames = function (names) {
   names.forEach(function (name) {
     console.log(name);
   });
@@ -92,9 +92,9 @@ var wizard = {
   }
 };
 
-var getRandomNumber = function() {
+var getRandomNumber = function () {
   return Math.random();
-}
+};
 ```
 
 ### Названия констант (постоянных значений) написаны прописными (заглавными) буквами
@@ -114,7 +114,7 @@ var wizard = function (name, age) {
   this.age = age;
 };
 
-var Fly = function(coordinate) {
+var Fly = function (coordinate) {
   console.log('Смотрите я лечу!');
 };
 ```
@@ -126,7 +126,7 @@ var Wizard = function (name, age) {
   this.age = age;
 };
 
-var fly = function(coordinate) {
+var fly = function (coordinate) {
   console.log('Смотрите я лечу!');
 };
 ```
@@ -139,13 +139,15 @@ var fly = function(coordinate) {
 
 Неправильно:
 ```js
-if (x % 2 === 1) return;
+var isEven = true;
+if (x % 2 === 1) isEven = false;
 ```
 
 Правильно:
 ```js
+var isEven = true;
 if (x % 2 === 1) {
-  return;
+  isEven = false;
 }
 ```
 
@@ -180,8 +182,10 @@ if (happen) {
 
 - Операции после выхода из функции:
 ```js
-return;
-console.log('This will not happen!');
+(function () {
+  return;
+  console.log('This will not happen!');
+})();
 ```
 
 
@@ -230,15 +234,16 @@ if (foo === bar) {
 Пример правильного модуля:
 ```js
 'use strict';
-(function (){
-window.load = function (url, onLoad) {
-  var xhr = new XMLHttpRequest();
-  xhr.addEventListener('load', onLoad);
 
-  xhr.responseType = 'json';
-  xhr.open('GET', url);
-  xhr.send();
-};
+(function () {
+  window.load = function (url, onLoad) {
+    var xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onLoad);
+  
+    xhr.responseType = 'json';
+    xhr.open('GET', url);
+    xhr.send();
+  };
 })();
 ```
 
@@ -333,17 +338,17 @@ for (var i = 0; i < Math.min(apartments.length, 3); i++) {
 Неправильно:
 ```js
 var wizardNames = source.map(function (it) {
-    return it.wizard;
-  }).map(function (it) {
-    return it.name; 
-  });
+  return it.wizard;
+}).map(function (it) {
+  return it.name; 
+});
 ```
 
 Правильно:
 ```js
 var wizardNames = source.map(function (it) {
-    return it.wizard.name;
-  });
+  return it.wizard.name;
+});
 ```
 
 ### Множественные DOM-операции производятся на элементах, которые не добавлены в DOM 
@@ -377,20 +382,20 @@ var wizardNames = source.map(function (it) {
 ```js
 var keks = {
   name: 'Кекс'
-}
+};
 ```
 
 Правильно:
 ```js
 var cat = {
   name: 'Кекс'
-}
+};
 ```
 
 ### Название методов и свойств объектов не содержит название объектов 
 Неправильно:
 ```js
-popup.openPopup = function() {
+popup.openPopup = function () {
   console.log('I will open popup');
 };
 wizard.wizardName = 'Пендальф';
@@ -398,7 +403,7 @@ wizard.wizardName = 'Пендальф';
 
 Правильно
 ```js
-popup.open = function() {
+popup.open = function () {
   console.log('I will open popup');
 };
 wizard.name = 'Пендальф';
@@ -409,18 +414,18 @@ wizard.name = 'Пендальф';
  - `on` + (на каком элементе) + что случилось:
  
 ```js
- var onSidebarClick;
- var onContentLoad;
- 
- var onResize;
+var onSidebarClick;
+var onContentLoad;
+
+var onResize;
 ```
  - (на каком элементе) + что случилось + `Handler`:
  
 ```js
- var sidebarClickHandler;
- var contentLoadHandler;
- 
- var resizeHandler;
+var sidebarClickHandler;
+var contentLoadHandler;
+
+var resizeHandler;
 ```
 
 
@@ -432,7 +437,7 @@ wizard.name = 'Пендальф';
 Неправильно:
 ```js
 var doSomethingElse = function () {
-    // function body
+  // function body
 };
 
 function doSomething() {
@@ -443,11 +448,11 @@ function doSomething() {
 Правильно:
 ```js
 var doSomething = function () {
-    // function body
+  // function body
 };
 
 var doSomethingElse = function () {
-    // function body
+  // function body
 };
 ```
 
@@ -570,7 +575,7 @@ new Date() + 1000;
 Пример некорректной проверки на то, что переменная является числом:
 ```js
 var double = function (value) {
-  if(!value) {
+  if (!value) {
     return NaN;
   }
   
@@ -605,7 +610,7 @@ double(5);
     isEscPressed: function (evt) {
       return evt.keyCode === ESC_KEYCODE;
     }
-  }
+  };
 })();
 ```
 **Не стоит выносить в отдельный модуль одну повторяющуюся интсрукцию**:
@@ -616,7 +621,7 @@ double(5);
 (function () {
   window.hideGallery = function (gallery) {
     return gallery.classList.add('invisible');
-  }
+  };
 })();
 ```
 
@@ -656,7 +661,7 @@ double(5);
     isEscPressed: function (evt) {
       return evt.keyCode === ESC_KEYCODE;
     }
-  }
+  };
 })();
 ```
 
@@ -679,7 +684,7 @@ window.load = function (url, onLoad) {
 ```js
 'use strict';
 
-(function() {
+(function () {
   window.load = function (url, onLoad) {
     var xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onLoad);
@@ -726,20 +731,24 @@ isPositiveNumber(-30);
 ### Если при использовании условного оператора в любом случае возвращается значение, альтернативная ветка опускается
 Неправильно:
 ```js
-if (2 > 1) {
-  return val;
-} else {
-  return anotherVal;
-}
+var decide = function (val, anotherVal) {
+  if (2 > 1) {
+    return val;
+  } else {
+    return anotherVal;
+  }
+};
 ```
 
 Правильно:
 ```js
-if (2 > 1) {
-  return val;
-}
-
-return anotherVal;
+var decide = function (val, anotherVal) {
+  if (2 > 1) {
+    return val;
+  }
+  
+  return anotherVal;
+};
 ```
 
 ### Отсутствуют лишние приведения и проверки типов
@@ -779,15 +788,19 @@ var sex = male ? 'Мужчина' : 'Женщина';
 
 Неправильно:
 ```js
-if (firstValue === secondValue) {
-  return true;
-} else {
-  return false;
-}
+var equals = function (firstValue, secondValue) {
+  if (firstValue === secondValue) {
+    return true;
+  } else {
+    return false;
+  }
+};
 ```
 Правильно:
 ```js
-return firstValue === secondValue;
+var equals = function (firstValue, secondValue) {
+  return firstValue === secondValue;
+};
 ```
 
 
@@ -864,7 +877,7 @@ var changeFilter = function (filterName) {
 elements.forEach(function (el) {
   el.onclick = function () {
     console.log(el);
-  }
+  };
 });
 ```
 
