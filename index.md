@@ -16,7 +16,7 @@
 
 ## Именование
 
-### Название переменных, параметров, свойств и методов начинается со строчной буквы и записываются в нотации [camelcase](https://ru.wikipedia.org/wiki/CamelCase) 
+### Название переменных, параметров, свойств и методов начинается со строчной буквы и записываются в нотации [camelcase](https://ru.wikipedia.org/wiki/CamelCase)
 
 ### Для названия значений используются английские существительные
 Сокращения в словах запрещены. Сокращённые названия переменных можно использовать только, если такое название широко распространено. Допустимые сокращения:
@@ -130,7 +130,7 @@ var fly = function (coordinate) {
   console.log('Смотрите я лечу!');
 };
 ```
- 
+
 
 ## Форматирование и внешний вид
 
@@ -239,7 +239,7 @@ if (foo === bar) {
   window.load = function (url, onLoad) {
     var xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onLoad);
-  
+
     xhr.responseType = 'json';
     xhr.open('GET', url);
     xhr.send();
@@ -255,11 +255,11 @@ if (foo === bar) {
 'use strict';
 
 var ENTER_KEYCODE = 13;
-  
+
 (function () {
-  
+
   var userIcon = document.querySelector('.user');
- 
+
   userIcon.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ENTER_KEYCODE) {
       popup.classList.remove('hidden');
@@ -274,9 +274,9 @@ var ENTER_KEYCODE = 13;
 
 (function () {
   var ENTER_KEYCODE = 13;
-  
+
   var userIcon = document.querySelector('.user');
- 
+
   userIcon.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ENTER_KEYCODE) {
       popup.classList.remove('hidden');
@@ -340,7 +340,7 @@ for (var i = 0; i < Math.min(apartments.length, 3); i++) {
 var wizardNames = source.map(function (it) {
   return it.wizard;
 }).map(function (it) {
-  return it.name; 
+  return it.name;
 });
 ```
 
@@ -351,7 +351,7 @@ var wizardNames = source.map(function (it) {
 });
 ```
 
-### Множественные DOM-операции производятся на элементах, которые не добавлены в DOM 
+### Множественные DOM-операции производятся на элементах, которые не добавлены в DOM
 Например, наполнение скопированного из шаблона элемента данными
 
 
@@ -366,7 +366,7 @@ var wizardNames = source.map(function (it) {
 **Защита от неправильного поведения интерфейса**
  Например, на странице может существовать попап, который скрывается по `ESC`. Лучше для него гасить обработчик, если он не показан, потому что он может каким-то образом ломать поведение сайта — останавливать распространение, отменять поведение по умолчанию и т.д. Поэтому поведение должно быть **явным** — если в этот момент времени обработчики не нужны, их нужно удалить. Явное и предсказуемое поведение.
 
-### Запрещено использовать `innerHTML` и подобные ему свойства и методы для вставки пользовательских строк (имён, фамилий и т.д.)
+### Для вставки пользовательских строк (имён, фамилий и т.д.) использован `textContent`
 Защита от XSS-атак, а также изменения исходных данных, запутывание пользователя и прочее
 
 
@@ -392,7 +392,7 @@ var cat = {
 };
 ```
 
-### Название методов и свойств объектов не содержит название объектов 
+### Название методов и свойств объектов не содержит название объектов
 Неправильно:
 ```js
 popup.openPopup = function () {
@@ -412,7 +412,7 @@ wizard.name = 'Пендальф';
 ### Из названия обработчика события и функции-коллбэка следует, что это обработчик
 Для единственного обработчика или функции можно использовать `callback` или `cb`. Для именования нескольких обработчиков внутри одного модуля используется `on` или `handler` и описание события. Название обработчика строится следующим образом:
  - `on` + (на каком элементе) + что случилось:
- 
+
 ```js
 var onSidebarClick;
 var onContentLoad;
@@ -420,7 +420,7 @@ var onContentLoad;
 var onResize;
 ```
  - (на каком элементе) + что случилось + `Handler`:
- 
+
 ```js
 var sidebarClickHandler;
 var contentLoadHandler;
@@ -561,7 +561,7 @@ console.log(greet + names.join(', ') + '!');
 ```
 
 ### Отсутствуют потенциально некорректные операции
-Например некорректное сложение двух операндов как строк. Проблема приоритета конкатенации над сложением. 
+Например некорректное сложение двух операндов как строк. Проблема приоритета конкатенации над сложением.
 
 Неправильно:
 ```js
@@ -571,14 +571,14 @@ new Date() + 1000;
 ```js
 +new Date() + 1000;
 ```
-Некорректные проверки на существование с числами. 
+Некорректные проверки на существование с числами.
 Пример некорректной проверки на то, что переменная является числом:
 ```js
 var double = function (value) {
   if (!value) {
     return NaN;
   }
-  
+
   return value * 2;
 };
 
@@ -599,7 +599,7 @@ double(5);
 (function () {
   var ENTER_KEYCODE = 13;
   var ESC_KEYCODE = 27;
-  
+
   window.keyboard = {
     isKeyBoardEvent: function (evt) {
       return evt instanceof KeyboardEvent;
@@ -635,11 +635,11 @@ double(5);
 (function () {
   var ENTER_KEYCODE = 13;
   var ESC_KEYCODE = 27;
-  
+
   window.isEnterPressed = function (evt) {
     return evt.keyCode === ENTER_KEYCODE;
   };
-  
+
   window.isEscPressed = function (evt) {
     return evt.keyCode === ESC_KEYCODE;
   };
@@ -653,7 +653,7 @@ double(5);
 (function () {
   var ENTER_KEYCODE = 13;
   var ESC_KEYCODE = 27;
-  
+
   window.dialogUtil = {
     isEnterPressed: function (evt) {
       return evt.keyCode === ENTER_KEYCODE;
@@ -746,7 +746,7 @@ var decide = function (val, anotherVal) {
   if (2 > 1) {
     return val;
   }
-  
+
   return anotherVal;
 };
 ```
@@ -772,9 +772,9 @@ if (booleanValue) {
 Неправильно:
 ```js
 var sex;
-if (male) { 
+if (male) {
   sex = 'Мужчина';
-} else { 
+} else {
   sex = 'Женщина';
 }
 ```
@@ -782,7 +782,7 @@ if (male) {
 ```js
 var sex = male ? 'Мужчина' : 'Женщина';
 ```
- 
+
 ### Условия упрощены
 Если функция возвращает булево значение, не используется `if..else` с лишними `return`
 
