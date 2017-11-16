@@ -228,7 +228,7 @@ if (foo === bar) {
 ### Все скрипты подключаются через файл `index.html`
 Файлы скриптов подключаются перед закрывающимся тегом `</body>`, атрибуты `async` и `defer` не используются
 
-### Все файлы JS представляют собой отдельные модули в [IIFE](developer.mozilla.org/ru/docs/Web/JavaScript/A_re-introduction_to_JavaScript#%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8)
+### Все файлы JS представляют собой отдельные модули в [IIFE](https://developer.mozilla.org/ru/docs/Web/JavaScript/A_re-introduction_to_JavaScript#%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%B8)
 Экспорт значений производится через глобальную область видимости. Код вне модуля запрещён. Вне модуля могут располагаться комментарии и утилитные инструкции, такие как `'use strict';`
 
 Пример правильного модуля:
