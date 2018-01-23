@@ -104,8 +104,8 @@ var getRandomNumber = function () {
  var EARTH_RADIUS = 6370;
  ```
 
-### Конструкторы названы английскими существительными. Название конструкторов начинается с заглавной буквы
-Названия функций не являющихся конструкторами должны начинаться со строчной буквы
+### Название конструкторов и перечислений начинается с заглавной буквы. В названии используются английские существительные.
+
 
 Неправильно:
 ```js
@@ -130,6 +130,8 @@ var fly = function (coordinate) {
   console.log('Смотрите я лечу!');
 };
 ```
+
+Названия функций не являющихся конструкторами должны начинаться со строчной буквы
 
 
 ## Форматирование и внешний вид
@@ -872,7 +874,7 @@ var changeFilter = function (filterName) {
 
 Неправильно:
 ```js
-var activationHandler = function(evt) {
+var activationHandler = function (evt) {
   if (evt.keyCode === 13 || evt.type === 'click') {
     showPopup();
   }
@@ -883,11 +885,11 @@ button.addEventListener('keydown', activationHandler);
 ```
 Правильно:
 ```js
-var buttonClickHandler = function() {
+var buttonClickHandler = function () {
   showPopup();
 };
 
-var buttonKeydownHandler = function(evt) {
+var buttonKeydownHandler = function (evt) {
   if (evt.keyCode === 13) {
     showPopup();
   }
