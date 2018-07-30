@@ -109,7 +109,6 @@ var getRandomNumber = function () {
 
 Неправильно:
 ```js
-
 // Функция-конструктор
 var wizard = function (name, age) {
   this.name = name;
@@ -138,7 +137,6 @@ var ACCOMODATION_TYPES = {
 
 Правильно:
 ```js
-
 // Функция-конструктор
 var Wizard = function (name, age) {
   this.name = name;
