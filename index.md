@@ -104,30 +104,55 @@ var getRandomNumber = function () {
  var EARTH_RADIUS = 6370;
  ```
 
-### Название конструкторов и перечислений начинается с заглавной буквы. В названии используются английские существительные.
+### Название конструкторов и перечислений начинается с заглавной буквы. В названии используются английские существительные. Значения перечислений объявлены как константы
 
 
 Неправильно:
 ```js
+// Функция-конструктор
 var wizard = function (name, age) {
   this.name = name;
   this.age = age;
 };
 
+// Функция
 var Fly = function (coordinate) {
   console.log('Смотрите я лечу!');
+};
+
+// Перечисление
+var accomodationType = {
+  bungalo: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
+};
+
+// Перечисление
+var ACCOMODATION_TYPES = {
+  Bungalo: 'Бунгало',
+  House: 'Дом',
+  Palace: 'Дворец',
 };
 ```
 
 Правильно:
 ```js
+// Функция-конструктор
 var Wizard = function (name, age) {
   this.name = name;
   this.age = age;
 };
 
+// Функция
 var fly = function (coordinate) {
   console.log('Смотрите я лечу!');
+};
+
+// Перечисление
+var AccomodationType = {
+  BUNGALO: 'Бунгало',
+  HOUSE: 'Дом',
+  PALACE: 'Дворец',
 };
 ```
 
