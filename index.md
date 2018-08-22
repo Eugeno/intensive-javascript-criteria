@@ -652,8 +652,7 @@ double(5);
 ```
 Неправильно:
 ```js
-
-window.card = { open: function () {} };
+window.card = {open: function () {}};
 ```
 
 Правильно:
