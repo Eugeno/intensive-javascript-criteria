@@ -335,7 +335,7 @@ var onElemClick = function () {
   event.target.innerText = 'you really need event';
 };
 
-elem.addEventListener('click', oneElemClick);
+elem.addEventListener('click', onElemClick);
 ```
 
 ## Оптимальность
