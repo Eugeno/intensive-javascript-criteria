@@ -917,7 +917,8 @@ var changeFilter = function (filterName) {
 Неправильно:
 ```js
 var activationHandler = function (evt) {
-  if (evt.keyCode === 13 || evt.type === 'click') {
+  var KEY_CODE_ENTER = 13;
+  if (evt.keyCode === KEY_CODE_ENTER || evt.type === 'click') {
     showPopup();
   }
 };
@@ -932,7 +933,8 @@ var buttonClickHandler = function () {
 };
 
 var buttonKeydownHandler = function (evt) {
-  if (evt.keyCode === 13) {
+  var KEY_CODE_ENTER = 13;
+  if (evt.keyCode === KEY_CODE_ENTER) {
     showPopup();
   }
 };
