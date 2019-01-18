@@ -916,8 +916,9 @@ var changeFilter = function (filterName) {
 
 Неправильно:
 ```js
+var KEY_CODE_ENTER = 13;
+
 var activationHandler = function (evt) {
-  var KEY_CODE_ENTER = 13;
   if (evt.keyCode === KEY_CODE_ENTER || evt.type === 'click') {
     showPopup();
   }
@@ -928,12 +929,13 @@ button.addEventListener('keydown', activationHandler);
 ```
 Правильно:
 ```js
+var KEY_CODE_ENTER = 13;
+
 var buttonClickHandler = function () {
   showPopup();
 };
 
 var buttonKeydownHandler = function (evt) {
-  var KEY_CODE_ENTER = 13;
   if (evt.keyCode === KEY_CODE_ENTER) {
     showPopup();
   }
