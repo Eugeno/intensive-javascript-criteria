@@ -130,7 +130,7 @@ var accommodationType = {
 };
 
 // Перечисление
-var ACCOMODATION_TYPES = {
+var ACCOMMODATION_TYPES = {
   Bungalo: 'Бунгало',
   House: 'Дом',
   Palace: 'Дворец',
@@ -151,7 +151,7 @@ var fly = function (coordinate) {
 };
 
 // Перечисление
-var AccomodationType = {
+var AccommodationType = {
   BUNGALO: 'Бунгало',
   HOUSE: 'Дом',
   PALACE: 'Дворец',
