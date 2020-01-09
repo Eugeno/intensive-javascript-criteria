@@ -380,7 +380,19 @@ var wizardNames = source.map(function (it) {
 ```
 
 ### Множественные DOM-операции производятся на элементах, которые не добавлены в DOM.
-Например, наполнение скопированного из шаблона элемента данными.
+Например, наполнение скопированного из шаблона элемента данными или генерация разметки целиком средствами JavaScript:
+```js
+var cardList = document.querySelector('.card-list');
+var cardTemplate = document.querySelector('#card-template').content;
+var card = cardTemplate.cloneNode(true);
+var message = document.createElement('p');
+
+card.querySelector('.title').textContent = 'Hello, world!';
+message.textContent = 'How are you?';
+
+card.querySelector('.message').appendChild(message);
+cardList.appendChild(card);
+```
 
 
 ## Безопасность
