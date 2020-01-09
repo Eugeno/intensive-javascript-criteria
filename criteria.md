@@ -124,17 +124,17 @@ var Fly = function (coordinate) {
 };
 
 // Перечисление
-var accommodationType = {
-  bungalo: 'Бунгало',
-  house: 'Дом',
-  palace: 'Дворец',
+var wizardParameters = {
+  width: 13,
+  height: 21,
+  bag: 48,
 };
 
 // Перечисление
-var ACCOMMODATION_TYPES = {
-  Bungalo: 'Бунгало',
-  House: 'Дом',
-  Palace: 'Дворец',
+var WIZARD_PARAMETER = {
+  Width: 13,
+  Height: 21,
+  Bag: 48,
 };
 ```
 
@@ -152,10 +152,10 @@ var fly = function (coordinate) {
 };
 
 // Перечисление
-var AccommodationType = {
-  BUNGALO: 'Бунгало',
-  HOUSE: 'Дом',
-  PALACE: 'Дворец',
+var WizardParameter = {
+  WIDTH: 13,
+  HEIGHT: 21,
+  BAG: 48,
 };
 ```
 
