@@ -125,17 +125,17 @@ var Fly = function (coordinate) {
 };
 
 // Перечисление
-var wizardParameters = {
-  width: 13,
-  height: 21,
-  bag: 48,
+var statusCodes = {
+  ok: 200,
+  notFound: 404,
+  badRequest: 400,
 };
 
 // Перечисление
-var WIZARD_PARAMETER = {
-  Width: 13,
-  Height: 21,
-  Bag: 48,
+var STATUS_CODE = {
+  Ok: 200,
+  NotFound: 404,
+  BadRequest: 400,
 };
 ```
 
@@ -153,10 +153,10 @@ var fly = function (coordinate) {
 };
 
 // Перечисление
-var WizardParameter = {
-  WIDTH: 13,
-  HEIGHT: 21,
-  BAG: 48,
+var StatusCode = {
+  OK: 200,
+  NOT_FOUND: 404,
+  BAD_REQUEST: 400,
 };
 ```
 
@@ -164,10 +164,10 @@ var WizardParameter = {
 
 __Обратите внимание__, что не все объекты в коде проекта должны быть перечислениями. Например, допускается использование объектов в качестве словарей:
 ```js
-var houseTitleMap = {
-  bungalo: 'Бунгало',
-  house: 'Дом',
-  palace: 'Дворец',
+var priceTypeToRange = {
+  low: 'до 200 ₽',
+  medium: 'от 200 ₽ до 500 ₽',
+  high: 'от 500 ₽',
 };
 ```
 
