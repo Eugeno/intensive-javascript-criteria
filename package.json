@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "This repository is about criterias from Basic JavaScript course of [HTML Academy](https://htmlacademy.ru/intensive/javascript)",
   "scripts": {
-    "spellcheck": "yaspeller index.md -l en,ru --check-yo",
-    "test": "eslint --ext md index.md && npm run spellcheck"
+    "spellcheck": "yaspeller criteria.md -l en,ru --check-yo",
+    "test": "eslint --ext md criteria.md && npm run spellcheck"
   },
   "keywords": [],
   "author": "",

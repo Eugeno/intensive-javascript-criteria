@@ -5,9 +5,8 @@
   ],
   "dictionary": [
     "CamelCase",
+    "lowerCamelCase",
     "коллбэк",
-    "гайдлайн",
-    "стайлгайд",
     "Iterable",
     "W3C",
     "JS",
